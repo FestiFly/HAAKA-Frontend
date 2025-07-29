@@ -11,10 +11,10 @@ const teamMembers = [
   {
     name: "AKASH",
     bgname: "AKASH",
-    role: "Full Stack Developer",
-    oneline: "The UI Wizard Who Turns Pixels into Magic",
-    bio: "Akash doesn’t just build frontends—he breathes life into them. Whether it’s a landing page, dashboard, or a complex animation, he crafts it with flair and finesse. Known for his obsession with external components and colorful UI tricks, he makes every page a vibe. Ask him to build something and watch it become art—with a dash of humor too!",
-    bio2: "When he’s not styling divs or optimizing layouts, you’ll find Akash browsing the latest UI libraries just for fun. He’s the type who gets excited by micro-interactions and somehow manages to make loading screens feel like an experience.",
+    role: "Frontend Developer & Joke Specialist",
+    oneline: "The UI Wizard Who Codes with Comedy",
+    bio: "Akash doesn't just craft clean, responsive, and user-friendly interfaces—he does it while cracking jokes that make the whole team laugh. His code is as polished as his punchlines, and somehow he manages to debug both CSS and bad moods simultaneously. Every pixel is perfectly placed, every component perfectly timed (like his jokes).",
+    bio2: "When he's not making divs dance or animations sing, you'll find Akash testing his latest dad jokes on the team. He believes good UI should be like good comedy—timing is everything, and the user should never see the setup coming.",
     image: akashImg,
     social: {
       linkedin: "https://www.linkedin.com/in/akash-s-/",
@@ -25,11 +25,11 @@ const teamMembers = [
   },
   {
     name: "HARLEE",
-    role: "Full Stack Developer",
+    role: "AI Engineer & Naughty Fellow",
     bgname: "HARI",
-    oneline: "The Backbone Who Keeps It All Together",
-    bio: "Hariharan is the calm force that connects front and back like a pro conductor. He turns ideas into APIs and chaos into consistency. Every feature flows smoothly because he makes sure the engine underneath is solid. Whether you need performance or partnership, he’s the bridge that makes the system—and the team—click.",
-    bio2: "Hariharan thrives when the team needs structure and systems. He’s the unsung hero behind those ‘it just works’ moments and always knows where things are breaking—even before they do. A true engineer in spirit and execution.",
+    oneline: "The AI Whisperer with a Mischievous Streak",
+    bio: "Harlee is our resident expert in AI tools (especially ChatGPT), and he's got a naughty side that keeps everyone on their toes. He can make any AI model do tricks you didn't know were possible, all while plotting his next harmless prank on the team. His prompts are as clever as his schemes.",
+    bio2: "Don't let his innocent face fool you—behind those AI conversations, he's probably planning to automate everyone's coffee orders or teach the chatbot to roast the team. He's the guy who makes AI both productive and entertaining.",
     image: hariharanImg,
     social: {
       linkedin: "https://www.linkedin.com/in/hari-haran-z/",
@@ -40,11 +40,11 @@ const teamMembers = [
   },
   {
     name: "AJAY CHAKRAVARTHI",
-    role: "Full Stack Developer",
+    role: "GenAI Developer & Brainstormer",
     bgname: "AJAY",
-    oneline: "The Powerhouse of Ideas and Execution",
-    bio: "Ajay is the team’s brain engine and solution generator. Got a crazy requirement? He’s already 5 steps ahead. His energy, logic, and bold approach mean no task feels too big. He’s the one who starts with “What if…” and ends with “It’s done.” When speed meets brainpower—you get Ajay.",
-    bio2: "From brainstorming features to writing solid logic, Ajay brings unmatched energy to every sprint. He doesn’t just finish tasks—he elevates them. The team often wonders if he has a secret clone working in parallel.",
+    oneline: "The Innovation Engine Powered by GenAI",
+    bio: "Ajay is the guy who brains the innovation with GenAI themes (yes, he invented that verb). His mind works like a supercharged neural network—feed him a problem and watch him generate solutions faster than GPT-4. He doesn't just think outside the box; he redesigns the entire box using generative AI.",
+    bio2: "His brainstorming sessions are legendary. He'll start with 'What if we use AI to...' and end up with three revolutionary ideas, two working prototypes, and one existential question about whether AI dreams of electric sheep.",
     image: ajayImg,
     social: {
       linkedin: "https://www.linkedin.com/in/ajay-chakravarthi/",
@@ -55,11 +55,11 @@ const teamMembers = [
   },
   {
     name: "KAVIN",
-    role: "Full Stack Developer",
+    role: "Full Stack Developer & Mr. Extrovert",
     bgname: "KAVIN",
-    oneline: "The Silent Force of Our Backend World",
-    bio: "Kavin might be quiet in the room, but his code speaks volumes. He dives into backend problems like puzzles and returns with elegant, working logic. No complaints, no noise—just clean, dependable solutions with a touch of shy wit. He’s our go-to when backend logic needs some serious love (and zero bugs).",
-    bio2: "He doesn’t speak much in meetings, but his commits do. Kavin enjoys crafting elegant backend solutions, usually late at night, and somehow manages to ship features that no one even realized were broken yet.",
+    oneline: "The Silent Contributor Who Works Magic Behind Scenes",
+    bio: "Kavin has mastered the art of being an introvert in meetings but an extrovert in code. He doesn't involve himself in team drama, but he works harder for the team than anyone else. His commits speak louder than his voice ever will, and his solutions are always elegantly simple.",
+    bio2: "He's the team's secret weapon—while everyone else is talking, he's already building. His motto: 'Less meetings, more features.' Somehow, he delivers exactly what the project needs before anyone even realizes they needed it.",
     image: kavinImg,
     social: {
       linkedin: "https://www.linkedin.com/in/kavin-b-/",
@@ -70,11 +70,11 @@ const teamMembers = [
   },
   {
     name: "AKIL",
-    role: "Full Stack Developer",
+    role: "Tech Explorer & Research Guru",
     bgname: "AKIL",
-    oneline: "The Explorer Who Knows It All",
-    bio: "Akil is the guy who discovers a new tool before it trends. His curiosity knows no bounds—from AI APIs to obscure CLI tools, he’s already on it. A confident debugger and natural builder, he takes backend tasks and solves them with flair, leaving the rest of us wondering, “How did he do that so fast?” Always exploring, always surprising.",
-    bio2: "If there’s a dev tool that exists, Akil’s probably tried it before lunch. He’s the team’s scout—always learning, always experimenting. His GitHub activity graph looks like it’s training for a marathon.",
+    oneline: "The Fearless Pioneer Who Explores Everything",
+    bio: "Akil brings new ideas by exploring all new fields, and honestly, he doesn't care about conventional wisdom—which is exactly why he discovers the coolest stuff. While others stick to familiar tools, he's already three frameworks ahead, testing something that was released five minutes ago.",
+    bio2: "His 'don't care' attitude is actually his superpower. He's not afraid to break things, try weird APIs, or dive into documentation that makes other developers cry. His exploration adventures usually end with 'Hey guys, check out this amazing thing I found!'",
     image: akilImg,
     social: {
       linkedin: "https://www.linkedin.com/in/akil-a-/",
