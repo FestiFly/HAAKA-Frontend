@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Award, Target, Users, Zap, Globe, TrendingUp, Shield, Clock } from 'lucide-react';
 import Hero from '../components/Hero';
-import ContactUs from '../components/Contactus';
+import ContactUs from '../components/ContactUs';
 import Footer from '../components/Footer';
 
 const now = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }).toUpperCase();
