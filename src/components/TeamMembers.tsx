@@ -1,10 +1,11 @@
 import { motion } from 'framer-motion';
-import { Linkedin, Twitter, Mail } from 'lucide-react';
+import { Linkedin, portfolio, Mail, Globe } from 'lucide-react';
 import akashImg from '../assets/pics/bg/akash1.png';
 import hariharanImg from '../assets/pics/bg/harlee2.png';
 import kavinImg from '../assets/pics/bg/kavin.png';
 import ajayImg from '../assets/pics/bg/ajay.png';
 import akilImg from '../assets/pics/bg/akil.png';
+import { FaGithub } from 'react-icons/fa';
 
 const teamMembers = [
   {
@@ -16,9 +17,10 @@ const teamMembers = [
     bio2: "When he’s not styling divs or optimizing layouts, you’ll find Akash browsing the latest UI libraries just for fun. He’s the type who gets excited by micro-interactions and somehow manages to make loading screens feel like an experience.",
     image: akashImg,
     social: {
-      linkedin: "#",
-      twitter: "#",
-      email: "akash@example.com"
+      linkedin: "https://www.linkedin.com/in/akash-s-/",
+      portfolio: "https://www.akashsivakumar.tech/",
+      github: "https://github.com/Akash-Developer-hub",
+      email: "akashsivakumar485@gmail.com"
     }
   },
   {
@@ -30,9 +32,10 @@ const teamMembers = [
     bio2: "Hariharan thrives when the team needs structure and systems. He’s the unsung hero behind those ‘it just works’ moments and always knows where things are breaking—even before they do. A true engineer in spirit and execution.",
     image: hariharanImg,
     social: {
-      linkedin: "#",
-      twitter: "#",
-      email: "hariharan@example.com"
+      linkedin: "https://www.linkedin.com/in/hari-haran-z/",
+      portfolio: "https://www.harlee.pro/",
+      github:"https://github.com/Hariharanpugazh",
+      email: "hariharanpugazh@gmail.com"
     }
   },
   {
@@ -44,9 +47,10 @@ const teamMembers = [
     bio2: "From brainstorming features to writing solid logic, Ajay brings unmatched energy to every sprint. He doesn’t just finish tasks—he elevates them. The team often wonders if he has a secret clone working in parallel.",
     image: ajayImg,
     social: {
-      linkedin: "#",
-      twitter: "#",
-      email: "ajay@example.com"
+      linkedin: "https://www.linkedin.com/in/ajay-chakravarthi/",
+      portfolio: "https://www.ajaychakravarthi.tech/",
+      github:"https://github.com/Ajaychaki2004",
+      email: "sajaychakravarthi2004@gmail.com"
     }
   },
   {
@@ -58,9 +62,10 @@ const teamMembers = [
     bio2: "He doesn’t speak much in meetings, but his commits do. Kavin enjoys crafting elegant backend solutions, usually late at night, and somehow manages to ship features that no one even realized were broken yet.",
     image: kavinImg,
     social: {
-      linkedin: "#",
-      twitter: "#",
-      email: "kavin@example.com"
+      linkedin: "https://www.linkedin.com/in/kavin-b-/",
+      portfolio: "https://kavinbox.vercel.app/",
+      github:"https://github.com/Kavin-Bakyaraj",
+      email: "kavinbakyaraj47@gmail.com"
     }
   },
   {
@@ -72,9 +77,10 @@ const teamMembers = [
     bio2: "If there’s a dev tool that exists, Akil’s probably tried it before lunch. He’s the team’s scout—always learning, always experimenting. His GitHub activity graph looks like it’s training for a marathon.",
     image: akilImg,
     social: {
-      linkedin: "#",
-      twitter: "#",
-      email: "akil@example.com"
+      linkedin: "https://www.linkedin.com/in/akil-a-/",
+      portfolio: "https://www.akilalbs.me",
+      github:"https://github.com/AkilLabs",
+      email: "akilaskarali@gmail.com"
     }
   }
 ];
@@ -194,15 +200,27 @@ const TeamMembers = () => {
                       <div className="flex space-x-3">
                         <a
                           href={member.social.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="w-8 h-8 border border-gray-600 hover:border-white flex items-center justify-center hover:bg-white hover:text-black transition-all duration-300"
                         >
                           <Linkedin size={14} />
                         </a>
                         <a
-                          href={member.social.twitter}
+                          href={member.social.portfolio}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="w-8 h-8 border border-gray-600 hover:border-white flex items-center justify-center hover:bg-white hover:text-black transition-all duration-300"
                         >
-                          <Twitter size={14} />
+                          <Globe size={14} />
+                        </a>
+                        <a
+                          href={member.social.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-8 h-8 border border-gray-600 hover:border-white flex items-center justify-center hover:bg-white hover:text-black transition-all duration-300"
+                        >
+                          <FaGithub size={14} />
                         </a>
                         <a
                           href={`mailto:${member.social.email}`}

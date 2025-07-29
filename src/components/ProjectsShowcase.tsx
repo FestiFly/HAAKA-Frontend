@@ -19,7 +19,7 @@ const projects = [
     technologies: ["React-Vite", "Django", "MongoDB", "Tavus", "Lingo", "ElevenLabs", "Google OAuth", "Razorpay", "Reddit API"],
     team: [
       { name: "Hariharan", image: hariharanImg },
-      { name: "Ajay Chakravarthy", image: ajaychakravarthyImg },
+      { name: "AJAY CHAKRAVARTH", image: ajaychakravarthyImg },
       { name: "Akil", image: akilImg },
       { name: "Akash", image: akashImg },
       { name: "Kavin", image: kavinImg },
@@ -61,7 +61,7 @@ const projects = [
     technologies: ["React-Vite", "Django", "MongoDB", "WebSockets", "JWT Authentication", "Cloud Storage"],
     team: [
       { name: "Hariharan", image: hariharanImg },
-      { name: "Ajay Chakravarthy", image: ajaychakravarthyImg },
+      { name: "AJAY CHAKRAVARTH", image: ajaychakravarthyImg },
       { name: "Akash", image: akashImg },
     ],
     github: "https://github.com/FestiFly/LoveConnect.git",
