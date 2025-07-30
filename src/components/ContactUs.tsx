@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import {useState} from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
-
+ 
 const ContactUs = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [sending, setSending] = useState(false);
@@ -17,27 +17,21 @@ const ContactUs = () => {
     setResponse("");
 
     try {
-      const res = await fetch("https://haaka-backend.onrender.com/api/send-contact-email/", {
+      const res = await fetch("http://localhost:8000/api/send-contact-email/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)
       });
 
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-
       const data = await res.json();
       setResponse(data.message || "Message sent successfully.");
-      setFormData({ name: "", email: "", message: "" }); // Reset form
     } catch (err) {
-      console.error("Error sending message:", err);
       setResponse("Failed to send. Please try again.");
     } finally {
       setSending(false);
     }
   };
-
+  
   return (
     <section className="py-14 bg-black text-white">
       <div className="container mx-auto px-6">
@@ -69,7 +63,7 @@ const ContactUs = () => {
                 icon: <Mail size={22} />,
                 title: "EMAIL",
                 description: "For general inquiries and support, feel free to email us.",
-                contact: "contact@haaka.org"
+                contact: "info@haaka.online"
               },
               {
                 icon: <Phone size={22} />,

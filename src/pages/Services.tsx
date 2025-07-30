@@ -417,7 +417,7 @@ const Services = () => {
                (timeline ? `Timeline: ${timeline}\n` : '') +
                `\nLooking forward to your response.\n\nThanks.`;
 
-  const mailtoLink = `mailto:harleepugazh@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  const mailtoLink = `mailto: info@haaka.online?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   window.location.href = mailtoLink;
 };
 
@@ -734,15 +734,15 @@ const Services = () => {
           <p className="text-lg font-light mb-8 opacity-80">
             Reach out via{' '}
             <a 
-              href="mailto:hakka@gmail.com" 
+              href="mailto: info@haaka.online" 
               className="underline hover:text-gray-300 transition-colors duration-300"
             >
-              haaka.org
+              haaka.online
             </a>
             {' '}or drop a message on LinkedIn.
           </p>
           <motion.a 
-            href="mailto:hakka@gmail.com"
+            href="mailto:info@haaka.online"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="inline-flex items-center space-x-3 border-2 border-white px-8 py-4 text-sm font-medium tracking-widest hover:bg-white hover:text-black transition-all duration-300"
