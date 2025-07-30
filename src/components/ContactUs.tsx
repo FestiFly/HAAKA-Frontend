@@ -17,7 +17,7 @@ const ContactUs = () => {
     setResponse("");
 
     try {
-      const res = await fetch("http://localhost:8000/api/send-contact-email/", {
+      const res = await fetch("https://haaka-backend.onrender.com/api/send-contact-email/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData)
