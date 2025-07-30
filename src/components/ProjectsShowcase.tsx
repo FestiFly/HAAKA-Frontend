@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import hariharanImg from '../assets/pics/hariharan.png';
 import ajaychakravarthyImg from '../assets/pics/ajaychakravarthy.png';
 import akilImg from '../assets/pics/akil.png';
 import akashImg from '../assets/pics/akash.png';
 import kavinImg from '../assets/pics/kavin.png';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, Users, Calendar, Award, ArrowRight, X, Code, Globe, Star, Eye } from 'lucide-react';
-import ProjectDetail from './ProjectDetail';
+import { motion } from 'framer-motion';
+import { ExternalLink, Github, Users, Calendar, Award, ArrowRight, Code, Globe, Star, Eye } from 'lucide-react';
+
+// Helper to create a URL-friendly slug from a string
+const slugify = (str: string) =>
+  str
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)+/g, '');
 
 const projects = [
   {
@@ -134,16 +141,14 @@ const projects = [
 ];
 
 const ProjectsShowcase = () => {
-  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
-  const [detailViewProject, setDetailViewProject] = useState<typeof projects[0] | null>(null);
+  const navigate = useNavigate();
   const now = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }).toUpperCase();
-  
+
   return (
     <section className="py-32 bg-black text-white relative overflow-hidden">
       <div className="container mx-auto px-6">
-        
         {/* Date/Info top right */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
@@ -154,7 +159,7 @@ const ProjectsShowcase = () => {
         </motion.div>
 
         {/* Section Header */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -181,38 +186,29 @@ const ProjectsShowcase = () => {
               transition={{ duration: 0.8, delay: index * 0.1 }}
               viewport={{ once: true }}
               className="group cursor-pointer"
+              onClick={() => navigate(`/project/${slugify(project.title)}`)}
             >
               {/* Project Card */}
               <div className="border border-gray-800 hover:border-white transition-all duration-500 overflow-hidden group-hover:bg-white group-hover:text-black">
-                
                 {/* Project Image */}
                 <div className="aspect-[4/3] overflow-hidden relative">
-                  <img 
-                    src={project.image} 
+                  <img
+                    src={project.image}
                     alt={project.title}
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-40 group-hover:bg-opacity-10 transition-all duration-700"></div>
-                  
-                  
 
                   {/* Hover Overlay */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
                     <div className="text-center">
-                      
-                        
-                        <motion.button
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setDetailViewProject(project);
-                          }}
-                          className="ml-4 w-12 h-12 bg-white bg-opacity-20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-opacity-40 transition-all duration-300"
-                        >
-                          <ArrowRight size={20} />
-                        </motion.button>
-                      
+                      <motion.button
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                        className="ml-4 w-12 h-12 bg-white bg-opacity-20 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-opacity-40 transition-all duration-300"
+                      >
+                        <ArrowRight size={20} />
+                      </motion.button>
                       <p className="text-white font-medium mt-2">Full Details</p>
                     </div>
                   </div>
@@ -229,15 +225,15 @@ const ProjectsShowcase = () => {
                       <span className="text-xs opacity-60">{project.team.length}</span>
                     </div>
                   </div>
-                  
+
                   <h3 className="text-2xl font-bold mb-2 tracking-wider group-hover:text-black transition-colors duration-300">
                     {project.title}
                   </h3>
-                  
+
                   <p className="text-sm font-medium mb-3 opacity-80 group-hover:opacity-100 group-hover:text-black transition-all duration-300">
                     {project.subtitle}
                   </p>
-                  
+
                   <p className="text-sm leading-relaxed font-light opacity-70 group-hover:opacity-90 group-hover:text-black transition-all duration-300 mb-4">
                     {project.description}
                   </p>
@@ -245,7 +241,7 @@ const ProjectsShowcase = () => {
                   {/* Technologies */}
                   <div className="flex flex-wrap gap-2">
                     {project.technologies.slice(0, 3).map((tech) => (
-                      <span 
+                      <span
                         key={tech}
                         className="px-2 py-1 text-xs font-light border border-gray-600 group-hover:border-black rounded-full transition-colors duration-300"
                       >
@@ -264,184 +260,6 @@ const ProjectsShowcase = () => {
           ))}
         </div>
       </div>
-
-      {/* Project Detail Modal */}
-      <AnimatePresence>
-        {selectedProject && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-90 backdrop-blur-sm"
-            onClick={() => setSelectedProject(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="bg-black border-2 border-white max-w-6xl w-full max-h-[90vh] overflow-y-auto rounded-2xl"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Header */}
-              <div className="relative">
-                <img 
-                  src={selectedProject.image} 
-                  alt={selectedProject.title}
-                  className="w-full h-64 object-cover"
-                />
-                <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-                
-                {/* Close Button */}
-                <button
-                  onClick={() => setSelectedProject(null)}
-                  className="absolute top-4 right-4 w-10 h-10 bg-white bg-opacity-20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-opacity-40 transition-all duration-300"
-                >
-                  <X size={20} className="text-white" />
-                </button>
-
-                {/* Project Links */}
-                <div className="absolute top-4 left-4 flex space-x-3">
-                  <a
-                    href={selectedProject.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-2 px-4 py-2 bg-white bg-opacity-20 backdrop-blur-sm rounded-full hover:bg-opacity-40 transition-all duration-300"
-                  >
-                    <Globe size={16} className="text-white" />
-                    <span className="text-white font-medium">Live</span>
-                  </a>
-                  <a
-                    href={selectedProject.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-2 px-4 py-2 bg-white bg-opacity-20 backdrop-blur-sm rounded-full hover:bg-opacity-40 transition-all duration-300"
-                  >
-                    <Github size={16} className="text-white" />
-                    <span className="text-white font-medium">Code</span>
-                  </a>
-                </div>
-
-                {/* Title Overlay */}
-                <div className="absolute bottom-6 left-6">
-                  <h2 className="text-4xl font-black text-white mb-2 tracking-tighter">
-                    {selectedProject.title}
-                  </h2>
-                  <p className="text-xl font-light text-white opacity-90">
-                    {selectedProject.subtitle}
-                  </p>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="p-8 space-y-8">
-                
-                {/* Project Overview */}
-                <div>
-                  <h3 className="text-2xl font-bold mb-4 tracking-wider text-white">
-                    PROJECT OVERVIEW
-                  </h3>
-                  <p className="text-lg leading-relaxed font-light text-white opacity-90">
-                    {selectedProject.fullDescription}
-                  </p>
-                </div>
-
-                {/* Key Features */}
-                <div>
-                  <h3 className="text-2xl font-bold mb-4 tracking-wider text-white">
-                    KEY FEATURES
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {selectedProject.features.map((feature, index) => (
-                      <div key={index} className="flex items-start space-x-3">
-                        <Star size={16} className="text-white mt-1 flex-shrink-0" />
-                        <span className="text-white font-light">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Technologies */}
-                <div>
-                  <h3 className="text-2xl font-bold mb-4 tracking-wider text-white">
-                    TECHNOLOGIES USED
-                  </h3>
-                  <div className="flex flex-wrap gap-3">
-                    {selectedProject.technologies.map((tech) => (
-                      <span 
-                        key={tech}
-                        className="px-4 py-2 border border-white text-white font-medium rounded-full hover:bg-white hover:text-black transition-all duration-300"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Team */}
-                <div>
-                  <h3 className="text-2xl font-bold mb-4 tracking-wider text-white">
-                    PROJECT TEAM
-                  </h3>
-                  <div className="flex flex-wrap gap-3">
-                    {selectedProject.team.map((member) => (
-                      <div key={member.name} className="flex items-center space-x-2 px-4 py-2 border border-gray-600 rounded-full">
-                        {member.image ? (
-                          <img src={member.image} alt={member.name} className="w-8 h-8 rounded-full object-cover border border-white" />
-                        ) : (
-                          <Users size={16} className="text-white" />
-                        )}
-                        <span className="text-white font-light">{member.name}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Challenges & Impact */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div>
-                    <h3 className="text-xl font-bold mb-4 tracking-wider text-white">
-                      CHALLENGES SOLVED
-                    </h3>
-                    <ul className="space-y-2">
-                      {selectedProject.challenges.map((challenge, index) => (
-                        <li key={index} className="flex items-start space-x-3">
-                          <div className="w-2 h-2 bg-white rounded-full mt-2 flex-shrink-0"></div>
-                          <span className="text-white font-light">{challenge}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  
-                  <div>
-                    <h3 className="text-xl font-bold mb-4 tracking-wider text-white">
-                      PROJECT IMPACT
-                    </h3>
-                    <ul className="space-y-2">
-                      {selectedProject.impact.map((impact, index) => (
-                        <li key={index} className="flex items-start space-x-3">
-                          <Award size={16} className="text-white mt-1 flex-shrink-0" />
-                          <span className="text-white font-light">{impact}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Detailed Project View */}
-      <AnimatePresence>
-        {detailViewProject && (
-          <ProjectDetail
-            project={detailViewProject}
-            onClose={() => setDetailViewProject(null)}
-          />
-        )}
-      </AnimatePresence>
     </section>
   );
 };
