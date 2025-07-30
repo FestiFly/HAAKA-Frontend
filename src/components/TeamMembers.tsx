@@ -20,7 +20,7 @@ const teamMembers = [
       linkedin: "https://www.linkedin.com/in/akash-s-/",
       portfolio: "https://www.akashsivakumar.tech/",
       github: "https://github.com/Akash-Developer-hub",
-      email: "akashsivakumar485@gmail.com"
+      email: "akash@haaka.online"
     }
   },
   {
@@ -35,7 +35,7 @@ const teamMembers = [
       linkedin: "https://www.linkedin.com/in/hari-haran-z/",
       portfolio: "https://www.harlee.pro/",
       github:"https://github.com/Hariharanpugazh",
-      email: "hariharanpugazh@gmail.com"
+      email: "harlee@haaka.online"
     }
   },
   {
@@ -50,7 +50,7 @@ const teamMembers = [
       linkedin: "https://www.linkedin.com/in/ajay-chakravarthi/",
       portfolio: "https://www.ajaychakravarthi.tech/",
       github:"https://github.com/Ajaychaki2004",
-      email: "sajaychakravarthi2004@gmail.com"
+      email: " ajaychakravarthi@haaka.online"
     }
   },
   {
@@ -65,7 +65,7 @@ const teamMembers = [
       linkedin: "https://www.linkedin.com/in/kavin-b-/",
       portfolio: "https://kavinbox.vercel.app/",
       github:"https://github.com/Kavin-Bakyaraj",
-      email: "kavinbakyaraj47@gmail.com"
+      email: "kavin@haaka.online"
     }
   },
   {
@@ -80,7 +80,7 @@ const teamMembers = [
       linkedin: "https://www.linkedin.com/in/akil-a-/",
       portfolio: "https://www.akilalbs.me",
       github:"https://github.com/AkilLabs",
-      email: "akilaskarali@gmail.com"
+      email: "akil@haaka.online"
     }
   }
 ];
