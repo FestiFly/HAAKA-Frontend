@@ -15,7 +15,7 @@ export function FloatingDockDemo() {
     {
       title: "Home",
       icon: (
-        <IconHome className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+        <IconHome className="h-full w-full text-white " />
       ),
       href: "/",
       onClick: () => navigate("/"),
@@ -47,7 +47,7 @@ export function FloatingDockDemo() {
     {
       title: "GitHub",
       icon: (
-        <IconBrandGithub className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+        <IconBrandGithub className="h-full w-full text-white" />
       ),
       href: "https://github.com/Festifly", // replace with actual repo/org
       onClick: () => window.open("https://github.com/Festifly", ""),
