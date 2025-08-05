@@ -34,7 +34,7 @@ const teamMembers = [
     social: {
       linkedin: "https://www.linkedin.com/in/hari-haran-z/",
       portfolio: "https://www.harlee.pro/",
-      github:"https://github.com/Hariharanpugazh",
+      github: "https://github.com/Hariharanpugazh",
       email: "harlee@haaka.online"
     }
   },
@@ -49,7 +49,7 @@ const teamMembers = [
     social: {
       linkedin: "https://www.linkedin.com/in/ajay-chakravarthi/",
       portfolio: "https://www.ajaychakravarthi.tech/",
-      github:"https://github.com/Ajaychaki2004",
+      github: "https://github.com/Ajaychaki2004",
       email: " ajaychakravarthi@haaka.online"
     }
   },
@@ -64,7 +64,7 @@ const teamMembers = [
     social: {
       linkedin: "https://www.linkedin.com/in/kavin-b-/",
       portfolio: "https://kavinbox.vercel.app/",
-      github:"https://github.com/Kavin-Bakyaraj",
+      github: "https://github.com/Kavin-Bakyaraj",
       email: "kavin@haaka.online"
     }
   },
@@ -79,17 +79,26 @@ const teamMembers = [
     social: {
       linkedin: "https://www.linkedin.com/in/akil-a-/",
       portfolio: "https://www.akilalbs.me",
-      github:"https://github.com/AkilLabs",
+      github: "https://github.com/AkilLabs",
       email: "akil@haaka.online"
     }
   }
 ];
 
-
+const now = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' }).toUpperCase();
 const TeamMembers = () => {
   return (
     <section className="py-32 bg-black text-white">
       <div className="container mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="absolute top-8 right-8 text-sm font-light tracking-wider z-20"
+        >
+          <div>{now}</div>
+          <div className="mt-1">COIMBATORE</div>
+        </motion.div>
 
         {/* Section Header */}
         <motion.div
@@ -114,7 +123,7 @@ const TeamMembers = () => {
               key={member.name}
               initial={{ opacity: 0, y: 80 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration:2, delay: index * 0.1 }}
+              transition={{ duration: 2, delay: index * 0.1 }}
               className="relative min-h-screen flex items-center justify-center overflow-hidden"
             >
               {/* Background Name Typography */}
@@ -167,9 +176,9 @@ const TeamMembers = () => {
 
                     {/* Name Overlay */}
                     <div className="absolute bottom-6 left-6 right-6">
-                        <h4 className="text-2xl md:text-3xl font-black leading-none tracking-tighter text-gray-600/90">
+                      <h4 className="text-2xl md:text-3xl font-black leading-none tracking-tighter text-gray-600/90">
                         {member.name}
-                        </h4>
+                      </h4>
                     </div>
                   </div>
                 </motion.div>

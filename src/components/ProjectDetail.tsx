@@ -21,7 +21,7 @@ const ProjectDetail = () => {
     fullDescription: string;
     image: string;
     technologies: string[];
-    team: { name: string; image: string }[];
+    team: { name: string; image: string | null }[];
     github: string;
     website: string;
     year: string;
@@ -54,9 +54,9 @@ const ProjectDetail = () => {
     title: "FESTIFLY",
     subtitle: "AI-Powered Festival Discovery Platform",
     description: "FestiFly is an AI-powered festival companion platform that helps users discover, plan, and experience cultural and local festivals effortlessly.",
-    fullDescription: "FestiFly represents the future of festival discovery and planning. This comprehensive platform leverages cutting-edge AI technology to transform how people discover, plan, and experience cultural events. Built with a sophisticated React-Vite frontend and robust Django backend, FestiFly integrates real-time Reddit data analysis, intelligent planning algorithms, and immersive voice/video AI interfaces to create an unparalleled festival experience. The platform serves both festival-goers seeking authentic cultural experiences and event organizers looking to reach engaged audiences through data-driven insights and community engagement tools.",
+    fullDescription: "FestiFly is an AI-powered festival companion platform that helps users discover, plan, and experience cultural and local festivals effortlessly. Designed for both festival-goers and event organizers, it leverages real-time Reddit data, smart planning tools, and immersive voice/video AI interfaces to enhance how people explore festivals around them. The platform fetches real-time festival content using Reddit's API, generates AI-powered itineraries, and provides multilingual voice & video concierge services. It includes integrated maps, travel, and accommodation booking, social vibe scoring based on Reddit sentiment, and an organizer portal with optional blockchain ticketing.",
     image: "https://images.pexels.com/photos/1190298/pexels-photo-1190298.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-    technologies: ["React-Vite", "Django", "MongoDB", "Tavus", "Lingo", "ElevenLabs", "Google OAuth", "Razorpay", "Reddit API"],
+    technologies: ["Bolt.new", "21st.dev", "ElevenLabs", "Tavus", "Reddit API", "Google Maps API", "RevenueCat", "Algorand", "Lingo", "Sentry"],
     team: [
       { name: "Hariharan", image: hariharanImg },
       { name: "AJAY CHAKRAVARTH", image: ajaychakravarthyImg },
@@ -65,40 +65,39 @@ const ProjectDetail = () => {
       { name: "Kavin", image: kavinImg },
     ],
     github: "https://github.com/FestiFly/Bolt-Event-2025.git",
-    website: "https://festifly.xyz",
+    website: "https://festifly.fun",
     year: "2025",
     category: "AI Platform",
     status: "Live",
     features: [
-      "AI-powered festival recommendations",
-      "Real-time Reddit data integration",
-      "Voice and video AI interfaces",
-      "Smart planning and scheduling tools",
-      "Community engagement features",
-      "Payment integration with Razorpay",
-      "Social authentication system"
+      "Real-time festival discovery from Reddit",
+      "Voice & Video AI concierge in local languages",
+      "Integrated maps, travel, and accommodation",
+      "Social vibe score based on Reddit sentiment",
+      "Organizer portal with blockchain ticketing",
+      "Monetization via subscriptions and affiliate links"
     ],
     challenges: [
       "Seamless integration of multiple AI services",
-      "Handling and processing real-time social data",
-      "Designing intuitive voice and video interfaces",
+      "Real-time Reddit data processing and sentiment analysis",
+      "Multilingual voice and video AI implementation",
       "Scaling for large user bases during major events"
     ],
     impact: [
-      "Revolutionized festival discovery",
-      "Boosted user engagement and retention",
-      "Simplified event planning for users",
-      "Connected diverse festival communities"
+      "Simplified cultural exploration and festival planning",
+      "Enhanced festival discovery through AI and community data",
+      "Boosted cultural tourism and local event engagement",
+      "Connected festival communities globally"
     ]
   },
   {
     id: 2,
     title: "LOVECONNECT",
-    subtitle: "Relationship Companion Application",
-    description: "A mobile-first app for couples to stay connected, organized, and emotionally in sync.",
-    fullDescription: "LoveConnect is designed to help couples nurture their relationships through seamless communication and shared experiences. The app offers real-time messaging, collaborative notes, shared galleries, and a relationship timeline, all within a secure and private environment. Its romantic and intuitive interface ensures couples can easily organize their lives and strengthen their emotional bonds.",
+    subtitle: "Private Relationship Companion Platform",
+    description: "A private relationship companion platform for couples, blending real-time chat, shared notes, collaborative to-dos, reminders, and a unique gallery of memories.",
+    fullDescription: "LoveConnect is a private relationship companion platform for couples, blending real-time chat, shared notes, collaborative to-dos, reminders, and a unique gallery of memories. Designed with privacy at its core, it leverages modern tech to help couples connect, communicate, and cherish special moments together. The platform features secure real-time chat powered by WebSockets, shared note-taking with favorites and edit history, collaborative gallery for photos, smart reminders with notifications, and a 'Love Jar' for surprise notes. All data is scoped to a unique couple code ensuring complete privacy.",
     image: "https://images.pexels.com/photos/1024993/pexels-photo-1024993.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop",
-    technologies: ["React-Vite", "Django", "MongoDB", "WebSockets", "JWT Authentication", "Cloud Storage"],
+    technologies: ["React", "TypeScript", "Django", "Django REST", "Daphne ASGI", "MongoDB", "WebSockets", "JWT", "Cloudflare R2"],
     team: [
       { name: "Hariharan", image: hariharanImg },
       { name: "AJAY CHAKRAVARTH", image: ajaychakravarthyImg },
@@ -110,25 +109,27 @@ const ProjectDetail = () => {
     category: "Social Platform",
     status: "Live",
     features: [
-      "Real-time messaging for couples",
-      "Shared photo and video galleries",
-      "Collaborative notes and planning",
-      "Relationship timeline tracking",
-      "Smart reminders for important dates",
-      "Private and secure communication",
-      "Romantic and user-friendly design"
+      "Secure real-time chat powered by WebSockets",
+      "Shared note-taking with favorites and colors",
+      "Collaborative gallery for uploading and captioning photos",
+      "Smart reminders with priority and recurrence",
+      "Love Jar for surprise notes and shared to-do lists",
+      "Privacy-first: All data scoped to unique couple code",
+      "JWT authentication across API and chat",
+      "End-to-end encryption for all messages and media",
+      "Modern React TypeScript frontend with dark mode"
     ],
     challenges: [
-      "Ensuring real-time data sync",
-      "Maintaining privacy and security",
-      "Designing for emotional engagement",
-      "Optimizing for mobile devices"
+      "Implementing secure real-time WebSocket communication",
+      "Ensuring complete data privacy between couples",
+      "Designing intuitive collaborative interfaces",
+      "Managing real-time synchronization across multiple features"
     ],
     impact: [
-      "Improved communication between couples",
-      "Enhanced relationship organization",
-      "Strengthened emotional connections",
-      "Simplified shared planning and memories"
+      "Helped couples deepen connection and communication",
+      "Seamlessly managed shared memories and conversations",
+      "Provided secure digital space for relationship building",
+      "Enhanced collaborative planning and task management"
     ]
   },
   {
@@ -193,28 +194,186 @@ const ProjectDetail = () => {
     "https://images.pexels.com/photos/1181316/pexels-photo-1181316.jpeg?auto=compress&cs=tinysrgb&w=1200&h=800&fit=crop"
   ];
 
-  const detailedFeatures = [
-    {
-      title: "Advanced AI Integration",
-      description: "Cutting-edge artificial intelligence algorithms that provide intelligent recommendations and automated decision-making capabilities.",
-      icon: <Cpu size={24} />
-    },
-    // Add other detailed features here
-  ];
-
-  const architecture = {
-    frontend: ["React.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-    backend: ["Node.js", "Express.js", "Python", "Django"],
-    database: ["MongoDB", "PostgreSQL", "Redis", "Firebase"],
-    deployment: ["AWS", "Docker", "Kubernetes", "Vercel"]
+  // Dynamic detailed features based on project
+  const getDetailedFeatures = (project: Project) => {
+    switch (project.title) {
+      case "FESTIFLY":
+        return [
+          {
+            title: "Reddit Data Integration",
+            description: "Real-time festival discovery through Reddit API integration with sentiment analysis to determine festival popularity and vibe scores.",
+            icon: <Globe size={24} />
+          },
+          {
+            title: "AI-Powered Planning",
+            description: "Intelligent itinerary generation using GPT algorithms that consider location, preferences, and real-time data for optimal festival experiences.",
+            icon: <Cpu size={24} />
+          },
+          {
+            title: "Voice & Video AI Concierge",
+            description: "Multilingual voice assistance via ElevenLabs and personalized video briefings through Tavus for immersive user experience.",
+            icon: <Smartphone size={24} />
+          },
+          {
+            title: "Blockchain Ticketing",
+            description: "Optional Algorand-based blockchain ticketing system for event organizers with IPFS integration for secure ticket verification.",
+            icon: <Lock size={24} />
+          },
+          {
+            title: "Revenue Integration",
+            description: "Monetization through RevenueCat subscriptions, affiliate marketing for travel and accommodation, and premium feature access.",
+            icon: <Star size={24} />
+          },
+          {
+            title: "Real-time Analytics",
+            description: "Live sentiment tracking, user engagement metrics, and festival popularity scoring based on community data and social interactions.",
+            icon: <Zap size={24} />
+          }
+        ];
+      case "LOVECONNECT":
+        return [
+          {
+            title: "WebSocket Real-time Chat",
+            description: "Secure real-time messaging powered by Django ASGI and Daphne with JWT authentication for private couple communication.",
+            icon: <Globe size={24} />
+          },
+          {
+            title: "Privacy-First Architecture",
+            description: "All data scoped to unique couple codes ensuring complete privacy with encrypted storage and secure API endpoints.",
+            icon: <Lock size={24} />
+          },
+          {
+            title: "Collaborative Features",
+            description: "Shared note-taking, photo galleries, to-do lists, and Love Jar for surprise messages with real-time synchronization.",
+            icon: <Users size={24} />
+          },
+          {
+            title: "Smart Reminders",
+            description: "Intelligent reminder system with priority levels, recurrence patterns, and notification delivery for important relationship moments.",
+            icon: <Zap size={24} />
+          },
+          {
+            title: "Gallery Management",
+            description: "Cloudflare R2 powered photo storage with like functionality, caption editing, and secure image sharing between partners.",
+            icon: <ImageIcon size={24} />
+          },
+          {
+            title: "Dark Mode Interface",
+            description: "Modern React TypeScript frontend with beautiful dark mode design optimized for romantic and intimate user experiences.",
+            icon: <Monitor size={24} />
+          }
+        ];
+      case "AGENTIC-AI":
+        return [
+          {
+            title: "Advanced AI Integration",
+            description: "Cutting-edge artificial intelligence algorithms that provide intelligent recommendations and automated decision-making capabilities.",
+            icon: <Cpu size={24} />
+          },
+          {
+            title: "Real-time Threat Detection",
+            description: "Machine learning-powered security monitoring with instant threat identification and automated response capabilities.",
+            icon: <Shield size={24} />
+          },
+          {
+            title: "Scalable Architecture",
+            description: "Microservices-based system design with Docker and Kubernetes for enterprise-grade scalability and reliability.",
+            icon: <Layers size={24} />
+          },
+          {
+            title: "Data Analytics Engine",
+            description: "Advanced analytics and reporting system that processes high-volume security data with minimal false positives.",
+            icon: <Database size={24} />
+          },
+          {
+            title: "Integration Framework",
+            description: "Seamless integration with existing security tools and enterprise systems through comprehensive API framework.",
+            icon: <GitBranch size={24} />
+          },
+          {
+            title: "Performance Optimization",
+            description: "Optimized for real-time response with Redis caching and PostgreSQL for enterprise security environments.",
+            icon: <Server size={24} />
+          }
+        ];
+      default:
+        return [];
+    }
   };
 
-  const metrics = [
-    { label: "Active Users", value: "50K+", icon: <Users size={20} /> },
-    { label: "Performance Score", value: "98/100", icon: <Zap size={20} /> },
-    { label: "Uptime", value: "99.9%", icon: <Server size={20} /> },
-    { label: "Security Rating", value: "A+", icon: <Shield size={20} /> }
-  ];
+  const detailedFeatures = getDetailedFeatures(project);
+
+  // Dynamic technical architecture based on project
+  const getTechnicalArchitecture = (project: Project) => {
+    switch (project.title) {
+      case "FESTIFLY":
+        return {
+          frontend: ["Bolt.new", "21st.dev", "React.js", "TypeScript"],
+          backend: ["Netlify Functions", "Django", "Reddit API", "Google Maps API"],
+          ai_services: ["ElevenLabs", "Tavus", "GPT Integration", "Sentiment Analysis"],
+          blockchain: ["Algorand", "IPFS", "RevenueCat", "Sentry"]
+        };
+      case "LOVECONNECT":
+        return {
+          frontend: ["React", "TypeScript", "Lucide Icons", "Dark Mode UI"],
+          backend: ["Django REST", "Daphne ASGI", "WebSocket Channels", "JWT Auth"],
+          database: ["MongoDB", "Cloudflare R2", "Redis Cache", "Session Store"],
+          security: ["JWT Tokens", "CSRF Protection", "Couple Code Scoping", "Encrypted Storage"]
+        };
+      case "AGENTIC-AI":
+        return {
+          frontend: ["React.js", "TypeScript", "Security Dashboard", "Analytics UI"],
+          backend: ["Python", "Node.js", "TensorFlow", "ML Pipeline"],
+          database: ["PostgreSQL", "Redis", "Time-series DB", "Analytics Store"],
+          deployment: ["Docker", "Kubernetes", "AWS", "Microservices"]
+        };
+      default:
+        return {
+          frontend: ["React.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
+          backend: ["Node.js", "Express.js", "Python", "Django"],
+          database: ["MongoDB", "PostgreSQL", "Redis", "Firebase"],
+          deployment: ["AWS", "Docker", "Kubernetes", "Vercel"]
+        };
+    }
+  };
+
+  const architecture = getTechnicalArchitecture(project);
+
+  // Dynamic metrics based on project
+  const getProjectMetrics = (project: Project) => {
+    switch (project.title) {
+      case "FESTIFLY":
+        return [
+          { label: "Festival Events", value: "500+", icon: <Globe size={20} /> },
+          { label: "AI Accuracy", value: "94%", icon: <Cpu size={20} /> },
+          { label: "User Satisfaction", value: "4.8/5", icon: <Star size={20} /> },
+          { label: "Response Time", value: "<2s", icon: <Zap size={20} /> }
+        ];
+      case "LOVECONNECT":
+        return [
+          { label: "Active Couples", value: "1K+", icon: <Users size={20} /> },
+          { label: "Message Delivery", value: "99.9%", icon: <Zap size={20} /> },
+          { label: "Security Score", value: "A+", icon: <Shield size={20} /> },
+          { label: "Privacy Rating", value: "100%", icon: <Lock size={20} /> }
+        ];
+      case "AGENTIC-AI":
+        return [
+          { label: "Threat Detection", value: "99.7%", icon: <Shield size={20} /> },
+          { label: "Response Time", value: "<100ms", icon: <Zap size={20} /> },
+          { label: "Enterprise Clients", value: "50+", icon: <Users size={20} /> },
+          { label: "Uptime", value: "99.9%", icon: <Server size={20} /> }
+        ];
+      default:
+        return [
+          { label: "Active Users", value: "50K+", icon: <Users size={20} /> },
+          { label: "Performance Score", value: "98/100", icon: <Zap size={20} /> },
+          { label: "Uptime", value: "99.9%", icon: <Server size={20} /> },
+          { label: "Security Rating", value: "A+", icon: <Shield size={20} /> }
+        ];
+    }
+  };
+
+  const metrics = getProjectMetrics(project);
 
   const nextImage = () => {
     setSelectedImageIndex((prev) => (prev + 1) % demoImages.length);
@@ -485,7 +644,7 @@ const ProjectDetail = () => {
           </div>
         </motion.div>
 
-        {/* Detailed Features */}
+        {/* Core Features */}
         <motion.div
           initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -494,7 +653,95 @@ const ProjectDetail = () => {
           className="mb-20"
         >
           <h2 className="text-4xl font-black mb-12 text-white tracking-tighter">
-            DETAILED FEATURES
+            CORE FEATURES
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {project.features.map((feature, index) => (
+              <motion.div
+                key={feature}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 * index }}
+                viewport={{ once: true }}
+                className="flex items-start space-x-3 p-4 border border-gray-800 rounded-lg hover:border-white hover:bg-white hover:text-black transition-all duration-300 group"
+              >
+                <div className="flex-shrink-0 w-2 h-2 bg-white rounded-full mt-2 group-hover:bg-black transition-colors duration-300"></div>
+                <p className="text-gray-300 group-hover:text-black transition-colors duration-300">
+                  {feature}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Challenges & Impact */}
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="mb-20"
+        >
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* Challenges */}
+            <div>
+              <h2 className="text-3xl font-black mb-8 text-white tracking-tighter">
+                TECHNICAL CHALLENGES
+              </h2>
+              <div className="space-y-4">
+                {project.challenges.map((challenge, index) => (
+                  <motion.div
+                    key={challenge}
+                    initial={{ opacity: 0, x: -30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1 * index }}
+                    viewport={{ once: true }}
+                    className="flex items-start space-x-3 p-4 border border-gray-800 rounded-lg hover:border-white hover:bg-white hover:text-black transition-all duration-300 group"
+                  >
+                    <Target size={16} className="flex-shrink-0 text-white group-hover:text-black mt-1 transition-colors duration-300" />
+                    <p className="text-gray-300 group-hover:text-black transition-colors duration-300">
+                      {challenge}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Impact */}
+            <div>
+              <h2 className="text-3xl font-black mb-8 text-white tracking-tighter">
+                PROJECT IMPACT
+              </h2>
+              <div className="space-y-4">
+                {project.impact.map((impact, index) => (
+                  <motion.div
+                    key={impact}
+                    initial={{ opacity: 0, x: 30 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: 0.1 * index }}
+                    viewport={{ once: true }}
+                    className="flex items-start space-x-3 p-4 border border-gray-800 rounded-lg hover:border-white hover:bg-white hover:text-black transition-all duration-300 group"
+                  >
+                    <Award size={16} className="flex-shrink-0 text-white group-hover:text-black mt-1 transition-colors duration-300" />
+                    <p className="text-gray-300 group-hover:text-black transition-colors duration-300">
+                      {impact}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.div>
+        {/* Advanced Features */}
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="mb-20"
+        >
+          <h2 className="text-4xl font-black mb-12 text-white tracking-tighter">
+            ADVANCED FEATURES
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {detailedFeatures.map((feature, index) => (
@@ -548,22 +795,29 @@ const ProjectDetail = () => {
                 className="border border-gray-800 p-6 rounded-lg hover:border-white hover:bg-white hover:text-black hover:shadow-2xl hover:shadow-white/20 transition-all duration-500 group cursor-pointer"
               >
                 <div className="flex items-center mb-4">
-                  <motion.div
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                    transition={{ duration: 0.3 }}
-                    className="text-white group-hover:text-black mr-3 transition-colors duration-300"
-                  >
-                    {category === 'frontend' && <Monitor size={24} />}
-                    {category === 'backend' && <Server size={24} />}
-                    {category === 'database' && <Database size={24} />}
-                    {category === 'deployment' && <Cloud size={24} />}
-                  </motion.div>
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      transition={{ duration: 0.3 }}
+                      className="text-white group-hover:text-black mr-3 transition-colors duration-300"
+                    >
+                      {(() => {
+                      if (category === 'frontend' || category.includes('front')) return <Monitor size={24} />;
+                      if (category === 'backend' || category.includes('back')) return <Server size={24} />;
+                      if (category === 'database' || category.includes('data')) return <Database size={24} />;
+                      if (category === 'deployment' || category.includes('deploy')) return <Cloud size={24} />;
+                      if (category === 'blockchain' || category.includes('blockchain')) return <Lock size={24} />;
+                      if (category === 'ai_services' || category === 'ai' || category.includes('ai')) return <Cpu size={24} />;
+                      if (category === 'security' || category.includes('security')) return <Shield size={24} />;
+                      
+                      return <Layers size={24} />;
+                      })()}
+                    </motion.div>
                   <h3 className="text-xl font-bold text-white group-hover:text-black capitalize transition-colors duration-300">
-                    {category}
+                    {category.replace(/_/g, ' ')}
                   </h3>
                 </div>
                 <div className="space-y-2">
-                  {technologies.map((tech) => (
+                  {(technologies as string[]).map((tech: string) => (
                     <div key={tech} className="text-gray-400 group-hover:text-black text-sm transition-colors duration-300">
                       • {tech}
                     </div>
