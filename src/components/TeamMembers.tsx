@@ -78,7 +78,7 @@ const teamMembers = [
     image: akilImg,
     social: {
       linkedin: "https://www.linkedin.com/in/akil-a-/",
-      portfolio: "https://www.akilalbs.me",
+      portfolio: "https://www.akilabs.tech",
       github: "https://github.com/AkilLabs",
       email: "akil@haaka.online"
     }
@@ -94,7 +94,7 @@ const TeamMembers = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="absolute top-8 right-8 text-sm font-light tracking-wider z-20"
+          className="absolute top-8 right-8 text-sm font-light tracking-wider z-10"
         >
           <div>{now}</div>
           <div className="mt-1">COIMBATORE</div>

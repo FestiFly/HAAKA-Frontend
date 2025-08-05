@@ -49,10 +49,10 @@ const Chatbot = () => {
     }
   }, [messages]);
 
-  // Auto-close when clicking outside
+  // Auto-close when clicking outside (desktop only)
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (chatbotRef.current && !chatbotRef.current.contains(event.target as Node) && isOpen) {
+      if (chatbotRef.current && !chatbotRef.current.contains(event.target as Node) && isOpen && window.innerWidth >= 768) {
         setIsOpen(false);
       }
     };
@@ -63,6 +63,36 @@ const Chatbot = () => {
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
+
+  // Handle proper positioning on mobile and keyboard
+  useEffect(() => {
+    const handleResize = () => {
+      // Force a reflow to ensure proper positioning
+      if (chatbotRef.current && isOpen) {
+        chatbotRef.current.style.transform = 'translateZ(0)';
+      }
+    };
+
+    const handleViewportChange = () => {
+      // Handle mobile keyboard by adjusting viewport units
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+
+    window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleViewportChange);
+    window.addEventListener('orientationchange', handleViewportChange);
+    
+    // Call on mount
+    handleResize();
+    handleViewportChange();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', handleViewportChange);
+      window.removeEventListener('orientationchange', handleViewportChange);
     };
   }, [isOpen]);
 
@@ -155,6 +185,13 @@ const Chatbot = () => {
     }
   };
 
+  const handleInputFocus = () => {
+    // Scroll to bottom when input is focused (mobile keyboard)
+    setTimeout(() => {
+      scrollToBottom();
+    }, 100);
+  };
+
   const formatTime = (date: Date) => {
     return date.toLocaleTimeString('en-US', { 
       hour: '2-digit', 
@@ -183,14 +220,16 @@ const Chatbot = () => {
         whileHover={{ scale: 1.1, y: -2 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-8 right-8 z-[9999] w-16 h-16 bg-gradient-to-r from-gray-900 to-black text-white rounded-2xl shadow-2xl flex items-center justify-center hover:shadow-3xl transition-all duration-300 border border-gray-700 ${isOpen ? 'hidden' : 'flex'}`}
+        className={`fixed bottom-8 right-8 z-[99999] bg-black/20 backdrop-blur-3xl text-white rounded-2xl shadow-2xl flex items-center justify-center hover:shadow-3xl transition-all duration-300 border border-white/20 ${isOpen ? 'hidden' : 'flex'} md:flex`}
+        style={{
+          width: window.innerWidth < 768 ? '48px' : '56px',
+          height: window.innerWidth < 768 ? '48px' : '56px',
+          minWidth: window.innerWidth < 768 ? '48px' : '56px',
+          minHeight: window.innerWidth < 768 ? '48px' : '56px',
+          padding: 0
+        }}
       >
-        <MessageCircle size={24} />
-        <motion.div
-          animate={{ scale: [1, 1.2, 1] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"
-        />
+        <img src="/haaka.png" alt="HAAKA Logo" className="h-full w-full object-contain opacity-80" style={{maxWidth:'80%',maxHeight:'80%'}} />
       </motion.button>
 
       {/* Chat Window */}
@@ -198,37 +237,33 @@ const Chatbot = () => {
         {isOpen && (
           <motion.div
             ref={chatbotRef}
-            initial={{ opacity: 0, scale: 0.8, y: 100, x: 50 }}
+            initial={{ opacity: 0, y: 0 }}
             animate={{ 
-              opacity: 1, 
-              scale: 1, 
-              y: 0,
-              x: 0,
-              height: isMinimized ? '80px' : '520px'
+              opacity: 1,
+              y: 0
             }}
-            exit={{ opacity: 0, scale: 0.8, y: 100, x: 50 }}
+            exit={{ opacity: 0, y: 0 }}
             transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-            className="fixed bottom-8 right-8 z-[9999] w-80 bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200"
+            className={`fixed md:bottom-8 md:right-8 ${isMinimized ? 'bottom-0 right-0 left-0 md:left-auto' : 'bottom-0 right-0 left-0 top-0 md:left-auto md:top-auto'} z-[99999] w-screen ${isMinimized ? 'h-20 md:h-auto' : 'md:h-auto'} md:w-96 bg-white/10 backdrop-blur-3xl md:rounded-3xl rounded-none md:shadow-2xl overflow-hidden md:border border-white/20 border-none`}
             style={{
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1)'
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1)',
+              transform: 'translateZ(0)', // Force hardware acceleration for consistent positioning
+              WebkitBackfaceVisibility: 'hidden', // Prevent rendering issues on mobile
+              backfaceVisibility: 'hidden',
+              height: window.innerWidth >= 768 ? 'auto' : (isMinimized ? '80px' : 'calc(var(--vh, 1vh) * 100)')
             }}
           >
             {/* Header */}
-            <div className="bg-gradient-to-r from-gray-900 to-black text-white p-4 rounded-t-3xl">
+            <div className="bg-black/30 backdrop-blur-xl text-white p-4 md:rounded-t-3xl rounded-t-none border-b border-white/10">
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="relative">
-                    <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-                      <Bot size={18} className="text-black" />
-                    </div>
-                    <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
-                  </div>
+                    <div className="w-10 h-10 bg-white/20 backdrop-blur-xl rounded-full flex items-center justify-center border border-white/30 overflow-hidden">
+                      <img src="/haaka.png" alt="HAAKA Logo" className="w-7 h-7 object-contain" />
+                    </div>                  </div>
                   <div>
                     <h3 className="font-bold text-sm">HAAKA Assistant</h3>
-                    <p className="text-xs text-gray-300 flex items-center">
-                      <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
-                      Online now
-                    </p>
+                    
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -236,7 +271,7 @@ const Chatbot = () => {
                     whileHover={{ scale: 1.1, backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
                     whileTap={{ scale: 0.9 }}
                     onClick={clearChatHistory}
-                    className="w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-200"
+                    className="w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-200 hover:bg-white/10"
                     title="Clear Chat"
                   >
                     <Sparkles size={14} />
@@ -245,7 +280,7 @@ const Chatbot = () => {
                     whileHover={{ scale: 1.1, backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => setIsMinimized(!isMinimized)}
-                    className="w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-200"
+                    className="w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-200 hover:bg-white/10"
                   >
                     {isMinimized ? <Maximize2 size={16} /> : <Minimize2 size={16} />}
                   </motion.button>
@@ -253,7 +288,7 @@ const Chatbot = () => {
                     whileHover={{ scale: 1.1, backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => setIsOpen(false)}
-                    className="w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-200"
+                    className="w-8 h-8 flex items-center justify-center rounded-full transition-colors duration-200 hover:bg-white/10"
                   >
                     <X size={16} />
                   </motion.button>
@@ -269,16 +304,16 @@ const Chatbot = () => {
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="flex flex-col h-96 relative"
+                  className="flex flex-col h-full md:h-[480px] relative"
                 >
                   {/* Messages - Scrollable Area */}
                   <div 
                     ref={messagesContainerRef}
                     onScroll={handleScroll}
-                    className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 scroll-smooth custom-scrollbar" 
+                    className="flex-1 overflow-y-auto p-4 space-y-4 bg-transparent scroll-smooth custom-scrollbar" 
                     style={{
                       scrollBehavior: 'smooth',
-                      maxHeight: '300px'
+                      maxHeight: window.innerWidth >= 768 ? '380px' : 'calc(var(--vh, 1vh) * 100 - 240px)'
                     }}
                   >
                     {messages.map((message, index) => (
@@ -287,29 +322,34 @@ const Chatbot = () => {
                         initial={{ opacity: 0, y: 20, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         transition={{ duration: 0.3, delay: index * 0.05 }}
-                        className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                        className={`flex w-full ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                       >
-                        <div className={`flex items-end space-x-2 max-w-xs ${message.sender === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
-                          <motion.div 
-                            whileHover={{ scale: 1.1 }}
-                            className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                              message.sender === 'user' 
-                                ? 'bg-gradient-to-r from-gray-800 to-black text-white' 
-                                : 'bg-gradient-to-r from-blue-500 to-purple-600 text-white'
-                            }`}
-                          >
-                            {message.sender === 'user' ? <User size={14} /> : <Bot size={14} />}
-                          </motion.div>
-                          <div className={`rounded-2xl px-4 py-3 max-w-xs ${
-                            message.sender === 'user' 
-                              ? 'bg-gradient-to-r from-gray-800 to-black text-white rounded-br-md' 
-                              : 'bg-white text-gray-800 border border-gray-200 rounded-bl-md shadow-sm'
-                          }`}>
-                            <p className="text-sm leading-relaxed">{message.text}</p>
-                            <p className={`text-xs mt-2 ${message.sender === 'user' ? 'text-gray-300' : 'text-gray-500'}`}>
-                              {formatTime(message.timestamp)}
-                            </p>
+                        <div className={`flex flex-col w-full max-w-[95vw] md:max-w-[420px] ${message.sender === 'user' ? 'items-end' : 'items-start'}`}>
+                          {/* Icon on top */}
+                          <div className="mb-1 flex items-center">
+                            <motion.div
+                              whileHover={{ scale: 1.1 }}
+                              className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
+                                message.sender === 'user'
+                                  ? 'bg-black/20 backdrop-blur-xl text-white border border-white/20'
+                                  : 'bg-white/20 backdrop-blur-xl text-black border border-white/30'
+                              }`}
+                            >
+                              {message.sender === 'user' ? <User size={14} /> : <img src="/haaka.png" alt="HAAKA Logo" className="w-5 h-5 object-contain" />}
+                            </motion.div>
                           </div>
+                          {/* Message bubble below icon, full width, with extra horizontal padding */}
+                          <div className={`rounded-2xl px-6 md:px-8 py-3 ${
+                            message.sender === 'user'
+                              ? 'bg-black/20 backdrop-blur-xl text-white rounded-tr-md border border-white/20 self-end text-right'
+                              : 'bg-white/10 backdrop-blur-xl text-white border border-white/20 rounded-tl-md shadow-sm self-start text-left'
+                          }`} style={{maxWidth: '80%'}}>
+                            <p className="text-sm leading-relaxed break-words">{message.text}</p>
+                          </div>
+                          {/* Time below the bubble, outside the container */}
+                          <p className={`text-xs mt-1 ${message.sender === 'user' ? 'text-white/70 self-end pr-2' : 'text-white/60 self-start pl-2'}`} style={{maxWidth: '80%'}}>
+                            {formatTime(message.timestamp)}
+                          </p>
                         </div>
                       </motion.div>
                     ))}
@@ -328,10 +368,10 @@ const Chatbot = () => {
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.3, delay: 0.7 + index * 0.1 }}
-                            whileHover={{ scale: 1.05, backgroundColor: '#f3f4f6' }}
+                            whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => handleSendMessage(reply)}
-                            className="px-3 py-2 text-xs bg-white border border-gray-200 rounded-full text-gray-700 hover:text-gray-900 transition-all duration-200 shadow-sm"
+                            className="px-3 py-2 text-xs bg-white/10 backdrop-blur-xl border border-white/20 rounded-full text-white hover:text-white transition-all duration-200 shadow-sm"
                           >
                             {reply}
                           </motion.button>
@@ -348,25 +388,25 @@ const Chatbot = () => {
                           className="flex justify-start"
                         >
                           <div className="flex items-end space-x-2">
-                            <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full flex items-center justify-center">
-                              <Bot size={14} />
+                            <div className="w-8 h-8 bg-white/20 backdrop-blur-xl border border-white/30 rounded-full flex items-center justify-center overflow-hidden">
+                              <img src="/haaka.png" alt="HAAKA Logo" className="w-5 h-5 object-contain" />
                             </div>
-                            <div className="bg-white border border-gray-200 rounded-2xl rounded-bl-md px-4 py-3 shadow-sm">
+                            <div className="bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl rounded-bl-md px-4 py-3 shadow-sm">
                               <div className="flex space-x-1">
                                 <motion.div
                                   animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
                                   transition={{ duration: 0.8, repeat: Infinity, delay: 0 }}
-                                  className="w-2 h-2 bg-gray-400 rounded-full"
+                                  className="w-2 h-2 bg-white/60 rounded-full"
                                 />
                                 <motion.div
                                   animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
                                   transition={{ duration: 0.8, repeat: Infinity, delay: 0.2 }}
-                                  className="w-2 h-2 bg-gray-400 rounded-full"
+                                  className="w-2 h-2 bg-white/60 rounded-full"
                                 />
                                 <motion.div
                                   animate={{ scale: [1, 1.3, 1], opacity: [0.5, 1, 0.5] }}
                                   transition={{ duration: 0.8, repeat: Infinity, delay: 0.4 }}
-                                  className="w-2 h-2 bg-gray-400 rounded-full"
+                                  className="w-2 h-2 bg-white/60 rounded-full"
                                 />
                               </div>
                             </div>
@@ -385,7 +425,8 @@ const Chatbot = () => {
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
                           onClick={scrollToBottom}
-                          className="absolute bottom-20 right-6 w-10 h-10 bg-gray-800 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-700 transition-colors z-10"
+                          className="fixed md:absolute bottom-40 md:bottom-4 right-6 w-10 h-10 bg-black/20 backdrop-blur-xl text-white rounded-full flex items-center justify-center shadow-lg hover:bg-black/30 transition-colors z-50 border border-white/20"
+                          style={{ zIndex: 100 }}
                         >
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M7 14L12 19L17 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -397,32 +438,47 @@ const Chatbot = () => {
 
                     <div ref={messagesEndRef} />
                   </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
-                  {/* Input Area */}
-                  <div className="p-4 bg-white border-t border-gray-100">
-                    <div className="flex items-center space-x-3 bg-gray-50 rounded-2xl p-2 border border-gray-200 focus-within:border-gray-400 transition-colors duration-200">
-                      <input
-                        type="text"
-                        value={inputValue}
-                        onChange={(e) => setInputValue(e.target.value)}
-                        onKeyPress={handleKeyPress}
-                        placeholder="Type your message..."
-                        className="flex-1 bg-transparent text-gray-800 px-3 py-2 text-sm focus:outline-none placeholder-gray-500"
-                      />
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => handleSendMessage()}
-                        disabled={!inputValue.trim()}
-                        className="w-10 h-10 bg-gradient-to-r from-gray-800 to-black text-white rounded-xl flex items-center justify-center hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
-                      >
-                        <Send size={16} />
-                      </motion.button>
-                    </div>
-                    <p className="text-xs text-gray-400 mt-2 text-center">
-                      Powered by HAAKA Creative AI
-                    </p>
+            {/* Input Area - Fixed at bottom on mobile */}
+            <AnimatePresence>
+              {!isMinimized && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.3 }}
+                  className="fixed md:relative bottom-0 left-0 right-0 md:bottom-auto md:left-auto md:right-auto p-4 bg-black/10 backdrop-blur-xl border-t border-white/10 z-50"
+                  style={{
+                    paddingBottom: window.innerWidth >= 768 ? '16px' : 'calc(16px + env(safe-area-inset-bottom))'
+                  }}
+                >
+                  <div className="flex items-center space-x-3 bg-white/10 backdrop-blur-xl rounded-2xl p-2 border border-white/20 focus-within:border-white/40 transition-colors duration-200">
+                    <input
+                      type="text"
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                      onFocus={handleInputFocus}
+                      placeholder="Type your message..."
+                      className="flex-1 bg-transparent text-white px-3 py-2 text-sm focus:outline-none placeholder-white/50"
+                      style={{ fontSize: '16px' }} // Prevent zoom on iOS
+                    />
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => handleSendMessage()}
+                      disabled={!inputValue.trim()}
+                      className="w-10 h-10 bg-black/20 backdrop-blur-xl text-white rounded-xl flex items-center justify-center hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 border border-white/20"
+                    >
+                      <Send size={16} />
+                    </motion.button>
                   </div>
+                  <p className="text-xs text-white/50 mt-2 text-center">
+                    Powered by HAAKA Creative AI
+                  </p>
                 </motion.div>
               )}
             </AnimatePresence>
