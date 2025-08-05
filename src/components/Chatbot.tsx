@@ -425,7 +425,8 @@ const Chatbot = () => {
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
                           onClick={scrollToBottom}
-                          className="absolute bottom-20 right-6 w-10 h-10 bg-black/20 backdrop-blur-xl text-white rounded-full flex items-center justify-center shadow-lg hover:bg-black/30 transition-colors z-50 border border-white/20"
+                          className="fixed md:absolute bottom-40 md:bottom-4 right-6 w-10 h-10 bg-black/20 backdrop-blur-xl text-white rounded-full flex items-center justify-center shadow-lg hover:bg-black/30 transition-colors z-50 border border-white/20"
+                          style={{ zIndex: 100 }}
                         >
                           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M7 14L12 19L17 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
