@@ -77,7 +77,7 @@ function Footer() {
             </address>
           </motion.div>
 
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -102,6 +102,32 @@ function Footer() {
                   className="p-2 rounded-full bg-black hover:bg-white border border-gray-800 hover:text-black transition-colors"
                 >
                   {social.icon}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div> */}
+
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+          >
+            <h3 className="text-xl font-semibold mb-4">Project Links</h3>
+            <div className="flex flex-col">
+              {[
+                { href: "https://festifly.xyz/", label: "Festifly" },
+                { href: "https://loveconnect.haaka.online/", label: "Loveconnect" },
+                { href: "https://resumio.haaka.online/", label: "Agentic - AI" }
+              ].map((project, index) => (
+                <motion.a
+                  key={project.label}
+                  href={project.href}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 * index }}
+                  className="inline-block text-gray-400 w-40 p-0.5 rounded-full bg-black hover:underline transition-all duration-300"
+                >
+                  {project.label}
                 </motion.a>
               ))}
             </div>

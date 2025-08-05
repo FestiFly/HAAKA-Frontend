@@ -138,7 +138,7 @@ const OrganizationIntro = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             <div className="text-lg leading-relaxed font-light space-y-6">
               <p>
-                At H A A K A , we don't just create digital products—we architect experiences that resonate on both emotional and functional levels. Our methodology is rooted in deep research, strategic thinking, and an unwavering commitment to user-centered design principles.
+                At H A A K A , we don't just create digital products we architect experiences that resonate on both emotional and functional levels. Our methodology is rooted in deep research, strategic thinking, and an unwavering commitment to user-centered design principles.
               </p>
               <p>
                 We begin every project with comprehensive discovery sessions, diving deep into your business objectives, target audience psychology, and competitive landscape. This foundation allows us to craft solutions that are not only visually stunning but strategically sound and commercially viable.
@@ -304,10 +304,10 @@ const OrganizationIntro = () => {
             OUR PHILOSOPHY
           </h3>
           <blockquote className="text-xl md:text-2xl leading-relaxed font-light italic mb-8 border-l-4 border-white pl-8 text-left">
-            "True innovation emerges not from following trends, but from understanding fundamental human needs and crafting solutions that feel both revolutionary and inevitable. We don't just build products—we create experiences that become integral to people's lives."
+            "True innovation emerges not from following trends, but from understanding fundamental human needs and crafting solutions that feel both revolutionary and inevitable. We don't just build products we create experiences that become integral to people's lives."
           </blockquote>
           <p className="text-sm font-light tracking-widest opacity-60">
-            — H A A K A  
+              H A A K A  
           </p>
         </motion.div>
         <ContactUs />

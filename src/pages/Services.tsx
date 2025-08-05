@@ -81,7 +81,7 @@ const whyChooseItems = [
     },
     {
         title: "Full-Stack + GenAI Combo",
-        description: "No need to hire two people — I handle both core dev & AI with finesse.",
+        description: "No need to hire two people   I handle both core dev & AI with finesse.",
         header: (
             <div className="aspect-square w-full flex items-center justify-center bg-neutral-900 rounded-xl overflow-hidden">
                 <img src={fullstackGenaiImg} alt="Full-Stack GenAI" className="object-cover w-full h-full rounded-xl" />
