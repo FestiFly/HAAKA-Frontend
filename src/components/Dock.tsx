@@ -20,6 +20,14 @@ export function FloatingDockDemo() {
       href: "/",
       onClick: () => navigate("/"),
     },
+    // {
+    //   title: "About",
+    //   icon: (
+    //     <IconNewSection className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+    //   ),
+    //   href: "/about",
+    //   onClick: () => navigate("/about"),
+    // },
     {
       title: "Services",
       icon: (
@@ -44,6 +52,19 @@ export function FloatingDockDemo() {
       href: "/team",
       onClick: () => navigate("/team"),
     },
+    // {
+    //   title: "Footer",
+    //   icon: (
+    //     <img
+    //       src="https://assets.aceternity.com/logo-dark.png"
+    //       width={20}
+    //       height={20}
+    //       alt="Aceternity Logo"
+    //     />
+    //   ),
+    //   href: "/footer",
+    //   onClick: () => navigate("/footer"),
+    // },
     {
       title: "GitHub",
       icon: (

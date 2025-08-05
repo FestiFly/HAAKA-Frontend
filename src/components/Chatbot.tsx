@@ -15,12 +15,14 @@ const Chatbot = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [showScrollButton, setShowScrollButton] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatbotRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   // Load messages from localStorage on component mount
   useEffect(() => {
-    const savedMessages = localStorage.getItem('nexus-chatbot-messages');
+    const savedMessages = localStorage.getItem('HAAKA-chatbot-messages');
     if (savedMessages) {
       const parsedMessages = JSON.parse(savedMessages).map((msg: any) => ({
         ...msg,
@@ -31,19 +33,19 @@ const Chatbot = () => {
       // Set initial welcome message if no saved messages
       const welcomeMessage: Message = {
         id: '1',
-        text: 'Hello! I\'m your Nexus Creative assistant. How can I help you today? 👋',
+        text: 'Hello! I\'m your HAAKA Creative assistant. How can I help you today? 👋',
         sender: 'bot',
         timestamp: new Date()
       };
       setMessages([welcomeMessage]);
-      localStorage.setItem('nexus-chatbot-messages', JSON.stringify([welcomeMessage]));
+      localStorage.setItem('HAAKA-chatbot-messages', JSON.stringify([welcomeMessage]));
     }
   }, []);
 
   // Save messages to localStorage whenever messages change
   useEffect(() => {
     if (messages.length > 0) {
-      localStorage.setItem('nexus-chatbot-messages', JSON.stringify(messages));
+      localStorage.setItem('HAAKA-chatbot-messages', JSON.stringify(messages));
     }
   }, [messages]);
 
@@ -65,58 +67,86 @@ const Chatbot = () => {
   }, [isOpen]);
 
   const scrollToBottom = () => {
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  const handleScroll = () => {
+    if (messagesContainerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = messagesContainerRef.current;
+      const isNearBottom = scrollHeight - scrollTop - clientHeight < 50;
+      setShowScrollButton(!isNearBottom);
+    }
+  };
 
-  const predefinedResponses = [
-    "That's an interesting question! Our team specializes in creative solutions and would love to discuss your project in detail. ✨",
-    "Thank you for reaching out! We'd be happy to help you with your creative needs. Let me connect you with our team. 🚀",
-    "Great question! Our collective has extensive experience in this area. Would you like to schedule a consultation? 💡",
-    "I appreciate your interest! Our team can definitely assist you with that. Let's explore the possibilities together. 🎯",
-    "Excellent! That sounds like a perfect fit for our expertise. We'd love to learn more about your vision. 🎨",
-    "Thank you for your inquiry! Our creative team is always excited to take on new challenges. Let's discuss your project. 💪"
-  ];
+  useEffect(() => {
+    // Only auto-scroll if user is near the bottom
+    if (messagesContainerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = messagesContainerRef.current;
+      const isNearBottom = scrollHeight - scrollTop - clientHeight < 100;
+      if (isNearBottom) {
+        scrollToBottom();
+      }
+    }
+  }, [messages]);
 
   const quickReplies = [
     "Tell me about your services",
-    "I need a quote",
-    "Schedule a consultation",
-    "View portfolio"
+    "What projects have you worked on?",
+    "Do you have any open-source projects?",
+    "Do you provide agentic AI solutions?",
   ];
-
+  
   const handleSendMessage = async (messageText?: string) => {
-    const textToSend = messageText || inputValue;
-    if (!textToSend.trim()) return;
+  const textToSend = messageText || inputValue;
+  if (!textToSend.trim()) return;
 
-    const userMessage: Message = {
-      id: Date.now().toString(),
-      text: textToSend,
-      sender: 'user',
+  const userMessage: Message = {
+    id: Date.now().toString(),
+    text: textToSend,
+    sender: 'user',
+    timestamp: new Date()
+  };
+
+  setMessages(prev => [...prev, userMessage]);
+  setInputValue('');
+  setIsTyping(true);
+
+  try {
+    const res = await fetch('https://ajaychaki-chatbot-haaka.hf.space/query', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ question: textToSend })
+    });
+
+    const data = await res.json();
+
+    const botMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      text: data.response?.result || data.response || "⚠️ Sorry, I couldn't understand that.",
+      sender: 'bot',
       timestamp: new Date()
     };
 
-    setMessages(prev => [...prev, userMessage]);
-    setInputValue('');
-    setIsTyping(true);
+    setMessages(prev => [...prev, botMessage]);
+  } catch (error) {
+    const errorMessage: Message = {
+      id: (Date.now() + 2).toString(),
+      text: "❌ Failed to connect to the chatbot server. Please try again later.",
+      sender: 'bot',
+      timestamp: new Date()
+    };
 
-    // Simulate bot response delay
-    setTimeout(() => {
-      const randomResponse = predefinedResponses[Math.floor(Math.random() * predefinedResponses.length)];
-      const botMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        text: randomResponse,
-        sender: 'bot',
-        timestamp: new Date()
-      };
-      
-      setMessages(prev => [...prev, botMessage]);
-      setIsTyping(false);
-    }, 1200);
-  };
+    setMessages(prev => [...prev, errorMessage]);
+  } finally {
+    setIsTyping(false);
+  }
+};
+
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -136,12 +166,12 @@ const Chatbot = () => {
   const clearChatHistory = () => {
     const welcomeMessage: Message = {
       id: Date.now().toString(),
-      text: 'Hello! I\'m your Nexus Creative assistant. How can I help you today? 👋',
+      text: 'Hello! I\'m your HAAKA Creative assistant. How can I help you today? 👋',
       sender: 'bot',
       timestamp: new Date()
     };
     setMessages([welcomeMessage]);
-    localStorage.setItem('nexus-chatbot-messages', JSON.stringify([welcomeMessage]));
+    localStorage.setItem('HAAKA-chatbot-messages', JSON.stringify([welcomeMessage]));
   };
 
   return (
@@ -153,7 +183,7 @@ const Chatbot = () => {
         whileHover={{ scale: 1.1, y: -2 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(true)}
-        className={`fixed bottom-8 right-8 z-50 w-16 h-16 bg-gradient-to-r from-gray-900 to-black text-white rounded-2xl shadow-2xl flex items-center justify-center hover:shadow-3xl transition-all duration-300 border border-gray-700 ${isOpen ? 'hidden' : 'flex'}`}
+        className={`fixed bottom-8 right-8 z-[9999] w-16 h-16 bg-gradient-to-r from-gray-900 to-black text-white rounded-2xl shadow-2xl flex items-center justify-center hover:shadow-3xl transition-all duration-300 border border-gray-700 ${isOpen ? 'hidden' : 'flex'}`}
       >
         <MessageCircle size={24} />
         <motion.div
@@ -178,7 +208,7 @@ const Chatbot = () => {
             }}
             exit={{ opacity: 0, scale: 0.8, y: 100, x: 50 }}
             transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
-            className="fixed bottom-8 right-8 z-50 w-80 bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200"
+            className="fixed bottom-8 right-8 z-[9999] w-80 bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-200"
             style={{
               boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1)'
             }}
@@ -194,7 +224,7 @@ const Chatbot = () => {
                     <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
                   </div>
                   <div>
-                    <h3 className="font-bold text-sm">Nexus Assistant</h3>
+                    <h3 className="font-bold text-sm">HAAKA Assistant</h3>
                     <p className="text-xs text-gray-300 flex items-center">
                       <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
                       Online now
@@ -239,10 +269,18 @@ const Chatbot = () => {
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="flex flex-col h-96"
+                  className="flex flex-col h-96 relative"
                 >
                   {/* Messages - Scrollable Area */}
-                  <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                  <div 
+                    ref={messagesContainerRef}
+                    onScroll={handleScroll}
+                    className="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 scroll-smooth custom-scrollbar" 
+                    style={{
+                      scrollBehavior: 'smooth',
+                      maxHeight: '300px'
+                    }}
+                  >
                     {messages.map((message, index) => (
                       <motion.div
                         key={message.id}
@@ -301,7 +339,6 @@ const Chatbot = () => {
                       </motion.div>
                     )}
 
-                    {/* Typing Indicator */}
                     <AnimatePresence>
                       {isTyping && (
                         <motion.div
@@ -337,6 +374,27 @@ const Chatbot = () => {
                         </motion.div>
                       )}
                     </AnimatePresence>
+
+                    {/* Scroll to Bottom Button */}
+                    <AnimatePresence>
+                      {showScrollButton && (
+                        <motion.button
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.8 }}
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={scrollToBottom}
+                          className="absolute bottom-20 right-6 w-10 h-10 bg-gray-800 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-gray-700 transition-colors z-10"
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M7 14L12 19L17 14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M7 7L12 12L17 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </motion.button>
+                      )}
+                    </AnimatePresence>
+
                     <div ref={messagesEndRef} />
                   </div>
 
@@ -362,7 +420,7 @@ const Chatbot = () => {
                       </motion.button>
                     </div>
                     <p className="text-xs text-gray-400 mt-2 text-center">
-                      Powered by Nexus Creative AI
+                      Powered by HAAKA Creative AI
                     </p>
                   </div>
                 </motion.div>
