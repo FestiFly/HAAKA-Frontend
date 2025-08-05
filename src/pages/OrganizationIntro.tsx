@@ -16,7 +16,7 @@ const OrganizationIntro = () => {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.5 }}
-          className="absolute top-8 right-8 text-sm font-light tracking-wider z-20"
+          className="absolute top-8 right-8 text-sm font-light tracking-wider z-10"
         >
           <div>{now}</div>
           <div className="mt-1">COIMBATORE</div>
