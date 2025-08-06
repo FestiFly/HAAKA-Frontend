@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import { FloatingDockDemo } from "./components/Dock";
 import Services from "./pages/Services"; 
 import Chatbot from "./components/Chatbot";
+import Maze404 from "./components/Maze404";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/project/:title" element={<ProjectDetail />} />
           <Route path="/services" element={<Services />} />
           <Route path="/footer" element={<Footer />} />
+          <Route path="/*" element={<Maze404 />} />
         </Routes>
 
         {/* Floating Dock at bottom */}
